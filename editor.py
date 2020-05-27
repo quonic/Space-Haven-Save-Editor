@@ -97,6 +97,9 @@ except:
 
 game = tree.getroot()
 
+# List of items that will be skipped
+skip_items = [Items.Monster_meat]
+
 storage_number = 0
 # Go through the entire save file and edit storage counts
 for i in game:
@@ -117,9 +120,11 @@ for i in game:
                                                 count: int = floor(250 / len(n))
                                                 for inventory in n:
                                                     try:
+                                                        # Skip Items
                                                         if Items(int(inventory.attrib[
-                                                                         'elementaryId'])) == Items.Monster_meat:
-                                                            print("Skipping Monster Meat")
+                                                                         'elementaryId'])) in skip_items:
+                                                            print("Skipping " + Items(int(inventory.attrib[
+                                                                         'elementaryId'])))
                                                             continue
                                                         print("\t" + Items(int(
                                                             inventory.attrib['elementaryId'])).name + " " +
