@@ -1,9 +1,11 @@
-# Space Haven Storage Editor
+# Space Haven Save Editor
 This is a tool to edit the Large Storage's of ships in the game Space Haven.
 
-It currently only looks at all your ship's storage, then changes
-the item counts of each storage. It evens out the number of items to
-the max of 250.
+This too can:
+
+* Changes the item counts of each storage. It evens out the number of items to
+the max of 250. 250 / Number of items = each item count.
+* Max the attributes and skill of your characters
 
 For example if you have 1 energy rod in one storage it will make it
 have 250. If there are more than one item, say 25 items, then each
