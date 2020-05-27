@@ -117,7 +117,8 @@ for ship in ships:
                         if Items(int(inventory.attrib['elementaryId'])) in skip_items:
                             print("Skipping " + Items(int(inventory.attrib['elementaryId'])).name)
                             continue
-                        print("\t" + Items(int(inventory.attrib['elementaryId'])).name + " " + inventory.attrib['inStorage'] + " -> " + str(count))
+                        print("\t" + Items(int(inventory.attrib['elementaryId'])).name + " " + inventory.attrib[
+                            'inStorage'] + " -> " + str(count))
                         inventory.attrib['inStorage'] = str(count)
                     except ValueError:
                         print("Item not in list, ID:" + inventory.attrib['elementaryId'])
