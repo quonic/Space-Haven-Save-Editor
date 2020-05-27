@@ -18,6 +18,8 @@ game, then run the script.
 1) Download `editor.py`
 1) Run `python editor.py`
 1) Browse to your save file
+1) Select Option 1
+    1) Other options are for character skills and attributes 
 1) Have fun!
 
 # Notes

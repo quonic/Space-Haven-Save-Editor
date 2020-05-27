@@ -97,6 +97,33 @@ except:
 
 game = tree.getroot()
 
+game.findall("./ships/")[0].findall("./characters")[0].findall("./")[0].findall("./pers/attr/")
+
+fill_inv = False
+set_attr = False
+set_skills = False
+
+while True:
+    print("1) Fill Inventory")
+    print("2) Set Character's Attributes to 10")
+    print("3) Set Character's Skills to 10")
+    print("4) All of the above")
+    print("0) Quit")
+    selection = input("Select")
+    if selection == '1':
+        fill_inv = True
+    if selection == '2':
+        set_attr = True
+    if selection == '3':
+        set_skills = True
+    if selection == '4':
+        fill_inv = True
+        set_attr = True
+        set_skills = True
+    if selection == '0':
+        sys.exit(1)
+    break
+
 # List of items that will be skipped
 skip_items = [Items.Monster_meat]
 
@@ -105,23 +132,34 @@ storage_number = 0
 ships = game.findall("./ships/ship")
 for ship in ships:
     if ship.find("./settings/[@owner='Player']"):
-        print(ship.attrib["sname"])
-        for storage in ship.findall("./e/l/feat/inv"):
-            if len(storage) > 0:
-                print("Storage:" + str(storage_number))
-                storage_number = storage_number + 1
-                count: int = floor(250 / len(storage))
-                for inventory in storage:
-                    try:
-                        # Skip Items
-                        if Items(int(inventory.attrib['elementaryId'])) in skip_items:
-                            print("Skipping " + Items(int(inventory.attrib['elementaryId'])).name)
-                            continue
-                        print("\t" + Items(int(inventory.attrib['elementaryId'])).name + " " + inventory.attrib[
-                            'inStorage'] + " -> " + str(count))
-                        inventory.attrib['inStorage'] = str(count)
-                    except ValueError:
-                        print("Item not in list, ID:" + inventory.attrib['elementaryId'])
+        print("Ship Name: " + ship.attrib["sname"])
+        if set_attr or set_skills:
+            for character in ship.findall("./characters/c"):
+                if set_attr:
+                    print("Setting character points to 10")
+                    for attr in character.findall("./pers/attr/"):
+                        attr.attrib["points"] = str(10)
+                if set_skills:
+                    print("Setting character skills to 10")
+                    for skills in character.findall("./pers/skills/"):
+                        skills.attrib["level"] = skills.attrib["max"]
+        if fill_inv:
+            for storage in ship.findall("./e/l/feat/inv"):
+                if len(storage) > 0:
+                    print("Storage:" + str(storage_number))
+                    storage_number = storage_number + 1
+                    count: int = floor(250 / len(storage))
+                    for inventory in storage:
+                        try:
+                            # Skip Items
+                            if Items(int(inventory.attrib['elementaryId'])) in skip_items:
+                                print("Skipping " + Items(int(inventory.attrib['elementaryId'])).name)
+                                continue
+                            print("\t" + Items(int(inventory.attrib['elementaryId'])).name + " " + inventory.attrib[
+                                'inStorage'] + " -> " + str(count))
+                            inventory.attrib['inStorage'] = str(count)
+                        except ValueError:
+                            print("Item not in list, ID:" + inventory.attrib['elementaryId'])
 
 # Make a backup, in case something breaks
 time = time.strftime("%Y%m%d-%H%M%S")
