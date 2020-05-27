@@ -1,4 +1,4 @@
-# Space-Haven-Storage-Editor
+# Space Haven Storage Editor
 This is a tool to edit the Large Storage's of ships in the game Space Haven.
 
 It currently only looks at the selected ship's storage, then changes
