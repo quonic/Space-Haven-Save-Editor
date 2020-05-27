@@ -102,39 +102,25 @@ skip_items = [Items.Monster_meat]
 
 storage_number = 0
 # Go through the entire save file and edit storage counts
-for i in game:
-    if i.tag == 'ships':
-        for j in i:
-            if j[len(j) - 1].attrib['owner'] == "Player":
-                print(j.attrib['sname'])
-                for k in j:
-                    if len(k) > 0:
-                        for l in k:
-                            if l.tag == 'l':
-                                for m in l:
-                                    if m.tag == 'feat':
-                                        for n in m:
-                                            if n.tag == 'inv' and len(n) > 0:
-                                                print("Storage:" + str(storage_number))
-                                                storage_number = storage_number + 1
-                                                count: int = floor(250 / len(n))
-                                                for inventory in n:
-                                                    try:
-                                                        # Skip Items
-                                                        if Items(int(inventory.attrib[
-                                                                         'elementaryId'])) in skip_items:
-                                                            print("Skipping " + Items(int(inventory.attrib[
-                                                                         'elementaryId'])))
-                                                            continue
-                                                        print("\t" + Items(int(
-                                                            inventory.attrib['elementaryId'])).name + " " +
-                                                              inventory.attrib['inStorage'] + " -> " + str(
-                                                            count))
-                                                        inventory.attrib['inStorage'] = str(count)
-                                                    except ValueError:
-                                                        print(
-                                                            "Item not in list, ID:" + inventory.attrib[
-                                                                'elementaryId'])
+ships = game.findall("./ships/ship")
+for ship in ships:
+    if ship.find("./settings/[@owner='Player']"):
+        print(ship.attrib["sname"])
+        for storage in ship.findall("./e/l/feat/inv"):
+            if len(storage) > 0:
+                print("Storage:" + str(storage_number))
+                storage_number = storage_number + 1
+                count: int = floor(250 / len(storage))
+                for inventory in storage:
+                    try:
+                        # Skip Items
+                        if Items(int(inventory.attrib['elementaryId'])) in skip_items:
+                            print("Skipping " + Items(int(inventory.attrib['elementaryId'])).name)
+                            continue
+                        print("\t" + Items(int(inventory.attrib['elementaryId'])).name + " " + inventory.attrib['inStorage'] + " -> " + str(count))
+                        inventory.attrib['inStorage'] = str(count)
+                    except ValueError:
+                        print("Item not in list, ID:" + inventory.attrib['elementaryId'])
 
 # Make a backup, in case something breaks
 time = time.strftime("%Y%m%d-%H%M%S")
