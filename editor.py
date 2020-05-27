@@ -99,23 +99,23 @@ game = tree.getroot()
 
 storage_number = 0
 # Go through the entire save file and edit storage counts
-for i in game.getchildren():
+for i in game:
     if i.tag == 'ships':
-        for j in i.getchildren():
-            print(j.attrib['sname'])
-            if j.getchildren()[len(j.getchildren()) - 1].attrib['owner'] == "Player":
-                for k in j.getchildren():
+        for j in i:
+            if j[len(j) - 1].attrib['owner'] == "Player":
+                print(j.attrib['sname'])
+                for k in j:
                     if len(k) > 0:
-                        for l in k.getchildren():
+                        for l in k:
                             if l.tag == 'l':
-                                for m in l.getchildren():
+                                for m in l:
                                     if m.tag == 'feat':
-                                        for n in m.getchildren():
-                                            if n.tag == 'inv' and len(n.getchildren()) > 0:
+                                        for n in m:
+                                            if n.tag == 'inv' and len(n) > 0:
                                                 print("Storage:" + str(storage_number))
                                                 storage_number = storage_number + 1
-                                                count: int = floor(250 / len(n.getchildren()))
-                                                for inventory in n.getchildren():
+                                                count: int = floor(250 / len(n))
+                                                for inventory in n:
                                                     try:
                                                         if Items(int(inventory.attrib[
                                                                          'elementaryId'])) == Items.Monster_meat:
