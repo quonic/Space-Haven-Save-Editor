@@ -1,7 +1,7 @@
 # Space Haven Storage Editor
 This is a tool to edit the Large Storage's of ships in the game Space Haven.
 
-It currently only looks at the selected ship's storage, then changes
+It currently only looks at all your ship's storage, then changes
 the item counts of each storage. It evens out the number of items to
 the max of 250.
 
@@ -9,7 +9,7 @@ For example if you have 1 energy rod in one storage it will make it
 have 250. If there are more than one item, say 25 items, then each
 item count will be 10.
 
-Best practice it to move each item into their own storage, save the
+Best practice it to move each item into their own Large Storage, save the
 game, then run the script.
 
 ## Installing and running
@@ -18,7 +18,6 @@ game, then run the script.
 1) Download `editor.py`
 1) Run `python editor.py`
 1) Browse to your save file
-1) Select your ship, by the number next to it, and press enter
 1) Have fun!
 
 # Notes

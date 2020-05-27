@@ -97,33 +97,13 @@ except:
 
 game = tree.getroot()
 
-ship_counter = 0
-ship_number = 0
-ship_list = []
-
-# Prompt for selection of ship
-# todo detect player owned ships
-print("Ship Names")
-
-for i in game.getchildren():
-    if i.tag == 'ships':
-        for j in i.getchildren():
-            print(str(ship_counter) + ") " + j.attrib['sname'])
-            ship_list.append(j.attrib['sname'])
-            ship_counter = ship_counter + 1
-while True:
-    ship_number = input("Enter the number of your ship")
-    if int(ship_number) < ship_counter:
-        break
-
 storage_number = 0
 # Go through the entire save file and edit storage counts
 for i in game.getchildren():
     if i.tag == 'ships':
         for j in i.getchildren():
-            # Only edit the selected ship
-            if j.attrib['sname'] == ship_list[int(ship_number)]:
-                print(j.attrib['sname'])
+            print(j.attrib['sname'])
+            if j.getchildren()[len(j.getchildren()) - 1].attrib['owner'] == "Player":
                 for k in j.getchildren():
                     if len(k) > 0:
                         for l in k.getchildren():
@@ -148,7 +128,8 @@ for i in game.getchildren():
                                                         inventory.attrib['inStorage'] = str(count)
                                                     except ValueError:
                                                         print(
-                                                            "Item not in list, ID:" + inventory.attrib['elementaryId'])
+                                                            "Item not in list, ID:" + inventory.attrib[
+                                                                'elementaryId'])
 
 # Make a backup, in case something breaks
 time = time.strftime("%Y%m%d-%H%M%S")
