@@ -79,7 +79,7 @@ root = tk.Tk()
 root.withdraw()
 
 # Prompt for save file
-save_folder = steam_path[0] + '\\steamapps\\common\\SpaceHaven\\savegames\\'
+save_folder = '{0}\\steamapps\\common\\SpaceHaven\\savegames\\'.format(steam_path[0])
 save_file = filedialog.askopenfilename(initialdir=save_folder, title="Select save game file",
                                        filetypes=[("Saved Game", "game")])
 
